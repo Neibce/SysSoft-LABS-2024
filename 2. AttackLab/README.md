@@ -1,5 +1,6 @@
 # AttackLab
 - The Attack Lab: Understanding Buffer Overflow Bugs
+- 주어진 Binary 파일 분석(Disassembly)과 Debugging(GDB), Buffer Overflow Bugs를 통한 문제 해결
 - [Writeup](https://github.com/Neibce/SysSoft-LABS-2024/blob/main/2.%20AttackLab/Writeup-attacklab.pdf)
 ## 1.	Phase 1
 ![image](https://github.com/user-attachments/assets/7834783e-8406-4df4-96ef-9a890712cf1d)<br>
