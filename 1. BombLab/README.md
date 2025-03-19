@@ -1,14 +1,19 @@
-# 1. BombLab
+# BombLab
+- Defusing A Binary Bomb
+- [Writeup](https://github.com/Neibce/SysSoft-LABS-2024/blob/main/1.%20BombLab/Bomblab_writeup.pdf)
+  
 ## 1. Phase 1
 ![image](https://github.com/user-attachments/assets/dab83c5a-7414-4930-b242-0bcec651adcc)<br>
 phase_1 함수를 보면 strings_not_equal 함수 호출을 통해 문자열 비교가 이루어짐을 추측할 수 있고, test, jne를 보아 함수의 return value가 0이 아닐 경우 explode임을 알 수 있다.<br>
 ![image](https://github.com/user-attachments/assets/2f22b2b7-4b51-4c62-b154-13c910a7d99c)<br>
 strings_not_equal 함수를 호출하기 전에 lea로 rsi에 할당되는 값(0x2bd0)의 내용을 조회했더니 답인 “You can Russia from land here in Alaska.”을 알 수 있었다.<br>
+
 ## 2. Phase 2
 ![image](https://github.com/user-attachments/assets/6d9d4168-2039-43cb-a42c-89a5cf426243)<br>
 &nbsp;먼저 스택 포인터인 rsp를 rsi로 옮기고, read_six_numbers를 실행한 뒤 rsp 위치의 값이 0보다 작으면 explode_bomb으로 jump 하는 것으로 보아 read_six_numbers는 2번째 arg로 배열의 주소를 받아 입력 받은 6개의 숫자를 채우는 함수로 추측하였고 read_six_numbers 함수를 disass한 결과 sscanf와, sscanf 실행 전 lea 명령으로 sscanf의 arg에 rsi에서 4의 배수로 더해진 값들을 넣는 것을 보고 확신하게 되었다. js를 통해 첫번째 숫자는 0 이상이기만 하면 됨을 알아내었다.<br>
 ![image](https://github.com/user-attachments/assets/d50d81b6-1c71-40f6-9f76-edbed84a0456)<br>
 이후 숫자들은 어셈블리를 해석하면서(주석 참고) rbx로 1부터 5까지 5번 도는 반복문임을 알았고, 통과 조건은 arr[rbx - 1] + ebx == arr[rbx] 임을 알아냈다. 즉, 1,2,3,4,5씩 커지면 되는 것이다. 0,1,3,6,10,15를 입력했더니 통과되었다.<br>
+
 ## 3. Phase 3
 ![image](https://github.com/user-attachments/assets/4d35a297-35df-4dbf-87fe-ba4eadfd2455)<br>
 ![image](https://github.com/user-attachments/assets/4c755612-54d9-4d16-8fc6-c29a7f12fd5c)<br>
