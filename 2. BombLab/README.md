@@ -84,45 +84,14 @@ node|+0|+8|node|+0|+8
 <img width="190" alt="image" src="https://github.com/user-attachments/assets/e044b2ea-970b-48d3-83ae-96f0e3fda450" /> 명령을 통해 phase 4 입력 값 뒤에 문자열을 하나 더 확인하고 있음을 보았고, 그 값은 r8인 (rsp+0x10)에 저장됨을 알 수 있다.<br>
 ![image](https://github.com/user-attachments/assets/442169db-c945-40d2-9bba-a59259d4d5a9)<br>
 이 부분에서 (rsp+0x10)의 문자열과 <img width="168" alt="image" src="https://github.com/user-attachments/assets/126f6e3e-f89c-4272-adde-4d1cb1ec01b8" />를 비교하고 있음을 알았고, secret_phase의 실행 조건은 phase_4의 입력 뒤에 DrEvil을 덧붙이는 것임을 알 수 있었다.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![image](https://github.com/user-attachments/assets/e9f6f542-80fb-420e-b8ca-37ab959a54b6)<br>
+이제 secret_phase를 disass 해보았는데, 한 줄을 읽고 strtol을 통해 10진수 숫자 1개를 얻음을 알 수 있었고, 그 값에서 1을 뺀게 0x3E8(1000)보다 클 경우 explode임을 알 수 있었다.<br>
+![image](https://github.com/user-attachments/assets/369de946-0ee3-4f2a-b3f4-bad490821a60)<br>
+이후 부분에서 fun7(0x555555758150, input_num)을 호출하는 부분이 있었고, 리턴 값이 7이 아니면 explode임을 확인 할 수 있었다.<br>
+n1의 값은 <img width="213" alt="image" src="https://github.com/user-attachments/assets/1eed61bf-6e09-45c5-9592-d8f17dd2101f" />(36)임을 확인했으므로 fun7을 disass해보았다.<br>
+![image](https://github.com/user-attachments/assets/ddb9234e-b9c4-4459-96e6-d464a98d4eea)<br>
+fun7을 해석해보니 arg1이 입력 값보다 크면 return 2 \* fun7(\*(rdi+8), input_num)을, 다르면(즉, 작으면) return 2 \* fun7(\*(rdi+16), input_num) +1을 실행, 같으면 return 0임을 확인할 수 있었다. 최종 return값이 7이 되려면 2\*fun7(..)+1이 3번 실행되면 되므로 (2\*(2\*(2\*0+1)+1)+1 = 7) 입력 값은 \*(\*(\*(rdi+16)+16)+16)의 값과 같으면 된다.<br>
+<img width="170" alt="image" src="https://github.com/user-attachments/assets/8d770249-6533-45ed-a47c-62904c4293a4" /> 해당 값은 1001이므로 답은 1001이다.
 
 
 
