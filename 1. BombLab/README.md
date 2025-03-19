@@ -30,7 +30,7 @@ n1|pos|value|goto (value+0x2c40)
 ![image](https://github.com/user-attachments/assets/956321af-235e-4659-a54a-3e540584f36e)<br>
 13ac부터 확인해보면, 0x254(596)과 마지막 입력 값이 같아야 explode를 피할 수 있음(je 0x14a0)을 알 수 있다.
 ![image](https://github.com/user-attachments/assets/e21fbd82-a0a1-4c08-bdc2-f72f61f4fc43)<br>
-14a0을 보면, al과 입력받은 문자가 같아야 explode를 피할 수 있다. 13ac에서 0x78(120)을 eax에 mov했으므로 x를 입력해야 됨을 알 수 있다. 나머지 jump table은 무시하고 0 x 596 을 입력했더니 통과되었다.
+14a0을 보면, al과 입력받은 문자가 같아야 explode를 피할 수 있다. 13ac에서 0x78(120)을 eax에 mov했으므로 x를 입력해야 됨을 알 수 있다. 나머지 jump table은 무시하고 0 x 596 을 입력했더니 통과되었다.<br>
 
 ## 4. Phase 4
 sscanf 직전의 rsi 값을 확인하니 입력이 2개의 정수(%d %d)임을 알 수 있었다.
@@ -83,7 +83,7 @@ node|+0|+8|node|+0|+8
 이후 sscanf를 호출하고 있었는데, input(rdi)을 어디서 가져오는지 보기 위해서 <img width="240" alt="image" src="https://github.com/user-attachments/assets/65dd638a-5348-4252-aa89-4512076e17bd" /> 명령을 실행했고, phase 4때의 입력 값이랑 동일함을 확인 할 수 있었다.<br>
 <img width="190" alt="image" src="https://github.com/user-attachments/assets/e044b2ea-970b-48d3-83ae-96f0e3fda450" /> 명령을 통해 phase 4 입력 값 뒤에 문자열을 하나 더 확인하고 있음을 보았고, 그 값은 r8인 (rsp+0x10)에 저장됨을 알 수 있다.<br>
 ![image](https://github.com/user-attachments/assets/442169db-c945-40d2-9bba-a59259d4d5a9)<br>
-이 부분에서 (rsp+0x10)의 문자열과 <img width="168" alt="image" src="https://github.com/user-attachments/assets/126f6e3e-f89c-4272-adde-4d1cb1ec01b8" />를 비교하고 있음을 알았고, secret_phase의 실행 조건은 phase_4의 입력 뒤에 DrEvil을 덧붙이는 것임을 알 수 있었다.
+이 부분에서 (rsp+0x10)의 문자열과 <img width="168" alt="image" src="https://github.com/user-attachments/assets/126f6e3e-f89c-4272-adde-4d1cb1ec01b8" />를 비교하고 있음을 알았고, secret_phase의 실행 조건은 phase_4의 입력 뒤에 DrEvil을 덧붙이는 것임을 알 수 있었다.<br>
 ![image](https://github.com/user-attachments/assets/e9f6f542-80fb-420e-b8ca-37ab959a54b6)<br>
 이제 secret_phase를 disass 해보았는데, 한 줄을 읽고 strtol을 통해 10진수 숫자 1개를 얻음을 알 수 있었고, 그 값에서 1을 뺀게 0x3E8(1000)보다 클 경우 explode임을 알 수 있었다.<br>
 ![image](https://github.com/user-attachments/assets/369de946-0ee3-4f2a-b3f4-bad490821a60)<br>
