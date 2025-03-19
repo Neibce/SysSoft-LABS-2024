@@ -1,4 +1,4 @@
-# 2. BombLab
+# 1. BombLab
 ## 1. Phase 1
 ![image](https://github.com/user-attachments/assets/dab83c5a-7414-4930-b242-0bcec651adcc)<br>
 phase_1 함수를 보면 strings_not_equal 함수 호출을 통해 문자열 비교가 이루어짐을 추측할 수 있고, test, jne를 보아 함수의 return value가 0이 아닐 경우 explode임을 알 수 있다.<br>
