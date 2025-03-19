@@ -1,5 +1,6 @@
 # BombLab
 - Defusing A Binary Bomb
+- Binary 파일 분석(Disassembly)과 Debugging(GDB)을 통한 문제 해결
 - [Writeup](https://github.com/Neibce/SysSoft-LABS-2024/blob/main/1.%20BombLab/Bomblab_writeup.pdf)
   
 ## 1. Phase 1
