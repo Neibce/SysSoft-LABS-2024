@@ -1,5 +1,6 @@
 # AttackLab
-
+- The Attack Lab: Understanding Buffer Overflow Bugs
+- [Writeup](https://github.com/Neibce/SysSoft-LABS-2024/blob/main/2.%20AttackLab/Writeup-attacklab.pdf)
 ## 1.	Phase 1
 ![image](https://github.com/user-attachments/assets/7834783e-8406-4df4-96ef-9a890712cf1d)<br>
 getbuf 함수를 보면 0x28만큼 스택에서 할당받고 있음을 알 수 있고, buffer overflow를 통해 touch1 함수 실행을 유도하려면 0x28만큼을 다 채운 후 touch1 함수의 위치를 적어주면 된다.<br>
