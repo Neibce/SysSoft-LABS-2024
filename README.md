@@ -3,7 +3,5 @@
  - 2024년 1학기
 
 ## 목록
-1. DataLab
-2. BombLab
-3. AttackLab
-4. CacheLab
+1. BombLab
+2. AttackLab
